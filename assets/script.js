@@ -11,6 +11,61 @@
 
     var currentLang = 'sv';
 
+    var GREETINGS_SV = [
+        'N\u00e4men tjena {name}!',
+        'Tillbaka redan, {name}?',
+        'Vet din chef vilka sidor du surfar till, {name}?',
+        'Hej d\u00e4r, {name}!',
+        'Kul att se dig igen, {name}!',
+        'Jasss {name}, vad g\u00f6rs?',
+        '{name}! L\u00e4nge sedan sist.',
+        'Oj oj oj, {name} \u00e4r h\u00e4r!',
+        'Hoppas du har en bra dag, {name}!',
+        'Ah, {name}. Vi v\u00e4ntade p\u00e5 dig.'
+    ];
+
+    var GREETINGS_EN = [
+        'Well hello there, {name}!',
+        'Back already, {name}?',
+        'Does your boss know what sites you visit, {name}?',
+        'Hey {name}!',
+        'Good to see you again, {name}!',
+        'Sooo {name}, what\'s up?',
+        '{name}! Long time no see.',
+        'Oh oh oh, {name} is here!',
+        'Hope you\'re having a great day, {name}!',
+        'Ah, {name}. We\'ve been expecting you.'
+    ];
+
+    function getFirstName(displayName) {
+        if (!displayName) return null;
+        var parts = displayName.trim().split(' ');
+        return parts[0];
+    }
+
+    function initGreeting() {
+        var badge = document.getElementById('hero-badge');
+        if (!badge) return;
+
+        var displayName = null;
+        try {
+            displayName = localStorage.getItem('sparkUserDisplayName');
+        } catch (e) {
+            return;
+        }
+
+        var firstName = getFirstName(displayName);
+        if (!firstName) return;
+
+        var greetings = (currentLang === 'sv') ? GREETINGS_SV : GREETINGS_EN;
+        var idx = Math.floor(Math.random() * greetings.length);
+        var text = greetings[idx].replace('{name}', firstName);
+
+        badge.textContent = text;
+        badge.style.display = '';
+        badge.setAttribute('data-greeting-idx', idx);
+    }
+
     function setRandomLogo() {
         var logoBird = document.getElementById('logo-bird');
         if (logoBird) {
@@ -33,6 +88,7 @@
             label.textContent = (lang === 'sv') ? 'EN' : 'SV';
         }
         document.documentElement.lang = lang;
+        initGreeting();
     }
 
     function initLangToggle() {
@@ -96,5 +152,6 @@
         setFooterYear();
         initSmoothScroll();
         initLangToggle();
+        initGreeting();
     });
 })();
