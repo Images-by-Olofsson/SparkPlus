@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-    const VERSION_URL = '../SparkPlus/version.txt';
+    const VERSION_URL = 'https://github.com/Images-by-Olofsson/SparkPlus/raw/main/PROD/SparkPlus/version.txt';
 
     async function loadVersion() {
         const versionDisplay = document.getElementById('version-display');
