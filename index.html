@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SparkPlus - A Chromium-based browser extension that integrates directly with the Spark ticketing API for real-time ticket monitoring, notifications, SLA tracking, and time reporting.">
+    <meta name="description" content="Spark + - Ett Chromium-baserat webbl&auml;sartill&auml;gg som integrerar direkt med Spark-&auml;rendehanteringssystemets API f&ouml;r realtids&ouml;vervakning, notifikationer, SLA-sp&aring;rning och tidsrapportering.">
     <meta name="author" content="Linus Olofsson - Images-by-Olofsson">
-    <title>SparkPlus - Browser Extension</title>
+    <title>Spark + | Webbl&auml;sartill&auml;gg</title>
     <link rel="stylesheet" href="assets/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/><text x='50' y='68' font-family='Inter,sans-serif' font-size='48' font-weight='700' fill='white' text-anchor='middle'>S+</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a1a'/><text x='50' y='68' font-family='sans-serif' font-size='48' font-weight='700' fill='%23FCDE06' text-anchor='middle'>S+</text></svg>">
 </head>
 <body>
 
@@ -18,14 +15,19 @@
     <nav class="navbar">
         <div class="container nav-content">
             <a href="/" class="logo">
-                <img src="" alt="SparkPlus" class="logo-bird" id="logo-bird">
-                <span class="logo-text">SparkPlus</span>
+                <img src="assets/logos/Bird-1.png" alt="Spark +" class="logo-bird" id="logo-bird">
+                <span class="logo-text">Spark +</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#installation">Installation</a></li>
-                <li><a href="#changelog">Changelog</a></li>
+                <li><a href="#features" data-sv="Funktioner" data-en="Features">Funktioner</a></li>
+                <li><a href="#installation" data-sv="Installation" data-en="Installation">Installation</a></li>
+                <li><a href="#changelog" data-sv="&Auml;ndringslogg" data-en="Changelog">&Auml;ndringslogg</a></li>
                 <li><a href="https://github.com/Images-by-Olofsson/SparkPlus" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li>
+                    <button class="lang-toggle" id="lang-toggle" title="Switch language">
+                        <span class="lang-label" id="lang-label">EN</span>
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
@@ -33,13 +35,13 @@
     <!-- Hero Section -->
     <header class="hero">
         <div class="container hero-content">
-            <div class="hero-badge">Chromium Browser Extension</div>
-            <h1>SparkPlus</h1>
-            <p class="hero-subtitle">A browser extension that integrates directly with the Spark ticketing API, delivering real-time ticket monitoring, status change notifications, SLA tracking, and time reporting from the browser toolbar.</p>
+            <div class="hero-badge" data-sv="Chromium webbl&auml;sartill&auml;gg" data-en="Chromium Browser Extension">Chromium webbl&auml;sartill&auml;gg</div>
+            <img src="assets/logos/parkBloss.png" alt="Spark +" class="hero-logo">
+            <p class="hero-subtitle" data-sv="Ett webbl&auml;sartill&auml;gg som integrerar direkt med Sparks &auml;rendehanterings-API och levererar realtids&ouml;vervakning av &auml;renden, statusnotifikationer, SLA-sp&aring;rning och tidsrapportering direkt fr&aring;n webbl&auml;sarens verktygsf&auml;lt." data-en="A browser extension that integrates directly with the Spark ticketing API, delivering real-time ticket monitoring, status change notifications, SLA tracking, and time reporting from the browser toolbar.">Ett webbl&auml;sartill&auml;gg som integrerar direkt med Sparks &auml;rendehanterings-API och levererar realtids&ouml;vervakning av &auml;renden, statusnotifikationer, SLA-sp&aring;rning och tidsrapportering direkt fr&aring;n webbl&auml;sarens verktygsf&auml;lt.</p>
             <div class="hero-actions">
                 <a href="https://github.com/Images-by-Olofsson/SparkPlus/raw/main/PROD/SparkPlus/PROD-READY-SETUP.zip" class="btn btn-primary" id="download-btn" download>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download Latest
+                    <span data-sv="Ladda ner senaste" data-en="Download Latest">Ladda ner senaste</span>
                 </a>
                 <span class="version-badge" id="version-display">Loading...</span>
             </div>
@@ -49,35 +51,35 @@
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <h2 class="section-title">Features</h2>
+            <h2 class="section-title" data-sv="Funktioner" data-en="Features">Funktioner</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <img src="assets/icons/discussion.png" alt="Real-Time Notifications" class="feature-icon-img">
+                        <img src="assets/icons/discussion.png" alt="Realtidsnotifikationer" class="feature-icon-img">
                     </div>
-                    <h3>Real-Time Notifications</h3>
-                    <p>Receive instant browser notifications when tickets are assigned, updated, or when status changes occur. Powered by direct Spark API integration with automatic token management and 50-minute refresh cycles.</p>
+                    <h3 data-sv="Realtidsnotifikationer" data-en="Real-Time Notifications">Realtidsnotifikationer</h3>
+                    <p data-sv="F&aring; omedelbara webbl&auml;sarnotifikationer n&auml;r &auml;renden tilldelas, uppdateras eller n&auml;r status&auml;ndringar sker. Drivs av direkt Spark API-integration med automatisk tokenhantering och 50-minuters uppdateringscykler." data-en="Receive instant browser notifications when tickets are assigned, updated, or when status changes occur. Powered by direct Spark API integration with automatic token management and 50-minute refresh cycles.">F&aring; omedelbara webbl&auml;sarnotifikationer n&auml;r &auml;renden tilldelas, uppdateras eller n&auml;r status&auml;ndringar sker. Drivs av direkt Spark API-integration med automatisk tokenhantering och 50-minuters uppdateringscykler.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <img src="assets/icons/camera.png" alt="Ticket Overview" class="feature-icon-img">
+                        <img src="assets/icons/camera.png" alt="&Auml;rende&ouml;versikt" class="feature-icon-img">
                     </div>
-                    <h3>Ticket Overview</h3>
-                    <p>View all your assigned tickets at a glance directly from the browser toolbar. The extension queries the Spark API in real time, filtering out resolved and closed statuses to show only actionable items.</p>
+                    <h3 data-sv="&Auml;rende&ouml;versikt" data-en="Ticket Overview">&Auml;rende&ouml;versikt</h3>
+                    <p data-sv="Se alla dina tilldelade &auml;renden direkt fr&aring;n webbl&auml;sarens verktygsf&auml;lt. Till&auml;gget fr&aring;gar Spark API i realtid och filtrerar bort l&ouml;sta och st&auml;ngda statusar f&ouml;r att visa enbart aktiva &auml;renden." data-en="View all your assigned tickets at a glance directly from the browser toolbar. The extension queries the Spark API in real time, filtering out resolved and closed statuses to show only actionable items.">Se alla dina tilldelade &auml;renden direkt fr&aring;n webbl&auml;sarens verktygsf&auml;lt. Till&auml;gget fr&aring;gar Spark API i realtid och filtrerar bort l&ouml;sta och st&auml;ngda statusar f&ouml;r att visa enbart aktiva &auml;renden.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <img src="assets/icons/tools.png" alt="Quick Actions" class="feature-icon-img">
+                        <img src="assets/icons/tools.png" alt="Snabb&aring;tg&auml;rder" class="feature-icon-img">
                     </div>
-                    <h3>Quick Actions</h3>
-                    <p>Perform common ticket operations, time reporting, and SLA tracking directly from the extension popup without switching context or navigating away from your current workflow.</p>
+                    <h3 data-sv="Snabb&aring;tg&auml;rder" data-en="Quick Actions">Snabb&aring;tg&auml;rder</h3>
+                    <p data-sv="Utf&ouml;r vanliga &auml;rende&aring;tg&auml;rder, tidsrapportering och SLA-sp&aring;rning direkt fr&aring;n till&auml;ggets popup utan att byta kontext eller navigera bort fr&aring;n ditt arbetsfl&ouml;de." data-en="Perform common ticket operations, time reporting, and SLA tracking directly from the extension popup without switching context or navigating away from your current workflow.">Utf&ouml;r vanliga &auml;rende&aring;tg&auml;rder, tidsrapportering och SLA-sp&aring;rning direkt fr&aring;n till&auml;ggets popup utan att byta kontext eller navigera bort fr&aring;n ditt arbetsfl&ouml;de.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <img src="assets/icons/chip.png" alt="Configurable" class="feature-icon-img">
+                        <img src="assets/icons/chip.png" alt="Konfigurerbart" class="feature-icon-img">
                     </div>
-                    <h3>Configurable</h3>
-                    <p>Customise notification filters, refresh intervals, display preferences, and excluded ticket statuses. The extension adapts to your workflow with granular control over every aspect of its behaviour.</p>
+                    <h3 data-sv="Konfigurerbart" data-en="Configurable">Konfigurerbart</h3>
+                    <p data-sv="Anpassa notifikationsfilter, uppdateringsintervall, visningsinst&auml;llningar och exkluderade &auml;rendestatusar. Till&auml;gget anpassar sig till ditt arbetsfl&ouml;de med detaljerad kontroll &ouml;ver varje aspekt." data-en="Customise notification filters, refresh intervals, display preferences, and excluded ticket statuses. The extension adapts to your workflow with granular control over every aspect of its behaviour.">Anpassa notifikationsfilter, uppdateringsintervall, visningsinst&auml;llningar och exkluderade &auml;rendestatusar. Till&auml;gget anpassar sig till ditt arbetsfl&ouml;de med detaljerad kontroll &ouml;ver varje aspekt.</p>
                 </div>
             </div>
         </div>
@@ -86,34 +88,34 @@
     <!-- Installation Section -->
     <section id="installation" class="installation">
         <div class="container">
-            <h2 class="section-title">Installation</h2>
+            <h2 class="section-title" data-sv="Installation" data-en="Installation">Installation</h2>
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h3>Download</h3>
-                        <p>Click the <strong>Download Latest</strong> button above to get the latest <code>PROD-READY-SETUP.zip</code> package.</p>
+                        <h3 data-sv="Ladda ner" data-en="Download">Ladda ner</h3>
+                        <p data-sv="Klicka p&aring; knappen <strong>Ladda ner senaste</strong> ovan f&ouml;r att h&auml;mta det senaste <code>PROD-READY-SETUP.zip</code>-paketet." data-en="Click the <strong>Download Latest</strong> button above to get the latest <code>PROD-READY-SETUP.zip</code> package.">Klicka p&aring; knappen <strong>Ladda ner senaste</strong> ovan f&ouml;r att h&auml;mta det senaste <code>PROD-READY-SETUP.zip</code>-paketet.</p>
                     </div>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>Extract</h3>
-                        <p>Unzip the downloaded file to a permanent location on your computer. Do not place it in a temporary or downloads folder.</p>
+                        <h3 data-sv="Packa upp" data-en="Extract">Packa upp</h3>
+                        <p data-sv="Packa upp den nedladdade filen till en permanent plats p&aring; din dator. Placera den inte i en tillf&auml;llig mapp eller nedladdningsmappen." data-en="Unzip the downloaded file to a permanent location on your computer. Do not place it in a temporary or downloads folder.">Packa upp den nedladdade filen till en permanent plats p&aring; din dator. Placera den inte i en tillf&auml;llig mapp eller nedladdningsmappen.</p>
                     </div>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>Enable Developer Mode</h3>
-                        <p>Open <code>chrome://extensions</code> (or <code>edge://extensions</code> for Edge) in your Chromium-based browser and enable <strong>Developer mode</strong> in the top-right corner.</p>
+                        <h3 data-sv="Aktivera utvecklarl&auml;ge" data-en="Enable Developer Mode">Aktivera utvecklarl&auml;ge</h3>
+                        <p data-sv="&Ouml;ppna <code>chrome://extensions</code> (eller <code>edge://extensions</code> f&ouml;r Edge) i din Chromium-baserade webbl&auml;sare och aktivera <strong>Utvecklarl&auml;ge</strong> i &ouml;vre h&ouml;gra h&ouml;rnet." data-en="Open <code>chrome://extensions</code> (or <code>edge://extensions</code> for Edge) in your Chromium-based browser and enable <strong>Developer mode</strong> in the top-right corner.">&Ouml;ppna <code>chrome://extensions</code> (eller <code>edge://extensions</code> f&ouml;r Edge) i din Chromium-baserade webbl&auml;sare och aktivera <strong>Utvecklarl&auml;ge</strong> i &ouml;vre h&ouml;gra h&ouml;rnet.</p>
                     </div>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <h3>Load Extension</h3>
-                        <p>Click <strong>Load unpacked</strong> and select the extracted folder. SparkPlus will appear in your toolbar. Sign in to <code>spark.iver.com</code> to activate the API connection.</p>
+                        <h3 data-sv="Ladda till&auml;gget" data-en="Load Extension">Ladda till&auml;gget</h3>
+                        <p data-sv="Klicka p&aring; <strong>L&auml;s in okomprimerat</strong> och v&auml;lj den uppackade mappen. Spark + visas nu i ditt verktygsf&auml;lt. Logga in p&aring; <code>spark.iver.com</code> f&ouml;r att aktivera API-anslutningen." data-en="Click <strong>Load unpacked</strong> and select the extracted folder. Spark + will appear in your toolbar. Sign in to <code>spark.iver.com</code> to activate the API connection.">Klicka p&aring; <strong>L&auml;s in okomprimerat</strong> och v&auml;lj den uppackade mappen. Spark + visas nu i ditt verktygsf&auml;lt. Logga in p&aring; <code>spark.iver.com</code> f&ouml;r att aktivera API-anslutningen.</p>
                     </div>
                 </div>
             </div>
@@ -123,20 +125,20 @@
     <!-- Changelog Section -->
     <section id="changelog" class="changelog">
         <div class="container">
-            <h2 class="section-title">Changelog</h2>
+            <h2 class="section-title" data-sv="&Auml;ndringslogg" data-en="Changelog">&Auml;ndringslogg</h2>
             <div class="changelog-entry">
                 <div class="changelog-version">
-                    <span class="tag tag-latest">Latest</span>
+                    <span class="tag tag-latest" data-sv="Senaste" data-en="Latest">Senaste</span>
                     <span class="changelog-ver" id="changelog-version">--</span>
                 </div>
                 <div class="changelog-details">
                     <p class="changelog-date" id="changelog-date">--</p>
                     <ul>
-                        <li>Direct Spark API integration (no intermediary services)</li>
-                        <li>Automatic token scraping and 50-minute refresh cycle</li>
-                        <li>Real-time ticket monitoring with configurable filters</li>
-                        <li>SLA tracking and time reporting from the toolbar</li>
-                        <li>Status change notifications with excluded status support</li>
+                        <li data-sv="Direkt Spark API-integration (inga mellantj&auml;nster)" data-en="Direct Spark API integration (no intermediary services)">Direkt Spark API-integration (inga mellantj&auml;nster)</li>
+                        <li data-sv="Automatisk tokenhantering med 50-minuters uppdateringscykel" data-en="Automatic token scraping and 50-minute refresh cycle">Automatisk tokenhantering med 50-minuters uppdateringscykel</li>
+                        <li data-sv="Realtids&ouml;vervakning av &auml;renden med konfigurerbara filter" data-en="Real-time ticket monitoring with configurable filters">Realtids&ouml;vervakning av &auml;renden med konfigurerbara filter</li>
+                        <li data-sv="SLA-sp&aring;rning och tidsrapportering fr&aring;n verktygsf&auml;ltet" data-en="SLA tracking and time reporting from the toolbar">SLA-sp&aring;rning och tidsrapportering fr&aring;n verktygsf&auml;ltet</li>
+                        <li data-sv="Status&auml;ndringsnotifikationer med st&ouml;d f&ouml;r exkluderade statusar" data-en="Status change notifications with excluded status support">Status&auml;ndringsnotifikationer med st&ouml;d f&ouml;r exkluderade statusar</li>
                     </ul>
                 </div>
             </div>
@@ -147,15 +149,15 @@
     <footer class="footer">
         <div class="container footer-content">
             <div class="footer-description">
-                <p class="footer-tagline">Spark+ provides real-time ticket monitoring, status change notifications, SLA tracking, and time reporting directly from the browser toolbar.</p>
-                <p class="footer-author">Created by <strong>Linus Olofsson</strong>, Specialist @ Cloud and Modern Workplace &mdash; <strong>Iver</strong>.</p>
-                <p class="footer-link">Collect the newest version at: <a href="https://sparkplus.se">sparkplus.se</a></p>
+                <p class="footer-tagline" data-sv="Spark + levererar realtids&ouml;vervakning av &auml;renden, status&auml;ndringsnotifikationer, SLA-sp&aring;rning och tidsrapportering direkt fr&aring;n webbl&auml;sarens verktygsf&auml;lt." data-en="Spark + provides real-time ticket monitoring, status change notifications, SLA tracking, and time reporting directly from the browser toolbar.">Spark + levererar realtids&ouml;vervakning av &auml;renden, status&auml;ndringsnotifikationer, SLA-sp&aring;rning och tidsrapportering direkt fr&aring;n webbl&auml;sarens verktygsf&auml;lt.</p>
+                <p class="footer-author" data-sv="Skapad av <strong>Linus Olofsson</strong>, Specialist @ Cloud and Modern Workplace &mdash; <strong>Iver</strong>." data-en="Created by <strong>Linus Olofsson</strong>, Specialist @ Cloud and Modern Workplace &mdash; <strong>Iver</strong>.">Skapad av <strong>Linus Olofsson</strong>, Specialist @ Cloud and Modern Workplace &mdash; <strong>Iver</strong>.</p>
+                <p class="footer-link" data-sv="H&auml;mta senaste versionen p&aring;: <a href='https://sparkplus.se'>sparkplus.se</a>" data-en="Collect the newest version at: <a href='https://sparkplus.se'>sparkplus.se</a>">H&auml;mta senaste versionen p&aring;: <a href="https://sparkplus.se">sparkplus.se</a></p>
             </div>
             <div class="footer-bottom">
                 <div class="footer-left">
                     <a href="/" class="footer-logo">
                         <span class="logo-icon logo-icon-sm">S+</span>
-                        <span>SparkPlus</span>
+                        <span>Spark +</span>
                     </a>
                 </div>
                 <div class="footer-center">

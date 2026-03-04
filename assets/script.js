@@ -9,11 +9,39 @@
         'assets/logos/Bird-folder.png'
     ];
 
+    var currentLang = 'sv';
+
     function setRandomLogo() {
         var logoBird = document.getElementById('logo-bird');
         if (logoBird) {
             var randomIndex = Math.floor(Math.random() * LOGO_IMAGES.length);
             logoBird.src = LOGO_IMAGES[randomIndex];
+        }
+    }
+
+    function switchLanguage(lang) {
+        currentLang = lang;
+        var elements = document.querySelectorAll('[data-sv][data-en]');
+        elements.forEach(function (el) {
+            var text = el.getAttribute('data-' + lang);
+            if (text) {
+                el.innerHTML = text;
+            }
+        });
+        var label = document.getElementById('lang-label');
+        if (label) {
+            label.textContent = (lang === 'sv') ? 'EN' : 'SV';
+        }
+        document.documentElement.lang = lang;
+    }
+
+    function initLangToggle() {
+        var btn = document.getElementById('lang-toggle');
+        if (btn) {
+            btn.addEventListener('click', function () {
+                var newLang = (currentLang === 'sv') ? 'en' : 'sv';
+                switchLanguage(newLang);
+            });
         }
     }
 
@@ -34,7 +62,7 @@
 
             const dateMatch = version.match(/(\d{4})\.(\d{2})\.(\d{2})/);
             if (dateMatch && changelogDate) {
-                changelogDate.textContent = `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`;
+                changelogDate.textContent = dateMatch[1] + '-' + dateMatch[2] + '-' + dateMatch[3];
             } else if (changelogDate) {
                 changelogDate.textContent = new Date().toISOString().split('T')[0];
             }
@@ -67,5 +95,6 @@
         loadVersion();
         setFooterYear();
         initSmoothScroll();
+        initLangToggle();
     });
 })();
