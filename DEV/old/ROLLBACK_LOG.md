@@ -2,8 +2,6 @@
 
 This file tracks all version rollbacks and production incidents.
 
-| Date       | Version      | Reason         | Status  |
-|------------|--------------|----------------|---------|
-| 2026-03-04 | v2026.03.04  | Initial setup  | Active  |
-| 2026-03-04 | V2.0.0       | Replaced by V2.0.1 | Archived |
-| 2026-03-04 | V2.0.1 | Replaced by v2026.03.04 | Archived |
+| Date       | Version | Reason              | Status   |
+|------------|---------|---------------------|----------|
+| 2026-03-04 | V2.0.0  | Replaced by V2.0.1  | Archived |
