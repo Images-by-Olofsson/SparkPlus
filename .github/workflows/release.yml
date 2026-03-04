@@ -1,0 +1,85 @@
+# =============================================================
+# SparkPlus - Automated Release Pipeline
+# =============================================================
+# Triggers when PROD-READY-SETUP.zip is updated in PROD/SparkPlus/
+# Archives the previous version, updates rollback log, generates
+# a new version identifier, and syncs version.txt to root.
+# =============================================================
+
+name: SparkPlus Release Pipeline
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'PROD/SparkPlus/PROD-READY-SETUP.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Read current version
+        id: current_version
+        run: |
+          if [ -f "PROD/SparkPlus/version.txt" ]; then
+            CURRENT_VERSION=$(cat PROD/SparkPlus/version.txt | tr -d '[:space:]')
+          else
+            CURRENT_VERSION="unknown"
+          fi
+          echo "version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Current version: $CURRENT_VERSION"
+
+      - name: Generate new version
+        id: new_version
+        run: |
+          NEW_VERSION="v$(date -u +'%Y.%m.%d')"
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+          echo "New version: $NEW_VERSION"
+
+      - name: Archive previous package
+        run: |
+          CURRENT_VERSION="${{ steps.current_version.outputs.version }}"
+          ARCHIVE_NAME="PROD-READY-SETUP-${CURRENT_VERSION}.zip"
+
+          if [ -f "PROD/SparkPlus/PROD-READY-SETUP.zip" ]; then
+            git show HEAD~1:PROD/SparkPlus/PROD-READY-SETUP.zip > "DEV/old/${ARCHIVE_NAME}" 2>/dev/null || true
+            echo "Archived previous package as DEV/old/${ARCHIVE_NAME}"
+          fi
+
+      - name: Update rollback log
+        run: |
+          CURRENT_VERSION="${{ steps.current_version.outputs.version }}"
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+          TODAY=$(date -u +'%Y-%m-%d')
+
+          echo "| ${TODAY} | ${CURRENT_VERSION} | Replaced by ${NEW_VERSION} | Archived |" >> DEV/old/ROLLBACK_LOG.md
+          echo "Updated ROLLBACK_LOG.md"
+
+      - name: Update version files
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+
+          echo "${NEW_VERSION}" > PROD/SparkPlus/version.txt
+          cp PROD/SparkPlus/version.txt version.txt
+
+          echo "Updated version to ${NEW_VERSION}"
+
+      - name: Commit and push changes
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add DEV/old/ PROD/SparkPlus/version.txt version.txt
+          git commit -m "Release ${NEW_VERSION} - automated pipeline" || echo "No changes to commit"
+          git push origin main

@@ -94,6 +94,13 @@ code {
     font-size: 1.1rem;
 }
 
+.logo-bird {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    object-fit: contain;
+}
+
 .logo-icon {
     display: inline-flex;
     align-items: center;
@@ -116,6 +123,15 @@ code {
 
 .logo-text {
     color: var(--color-text);
+}
+
+a.logo {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.logo:hover {
+    color: inherit;
 }
 
 .nav-links {
@@ -277,6 +293,13 @@ code {
     margin-bottom: 20px;
 }
 
+.feature-icon-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
 .feature-card h3 {
     font-size: 1.1rem;
     font-weight: 600;
@@ -416,16 +439,57 @@ code {
 
 /* --- Footer --- */
 .footer {
-    padding: 28px 0;
+    padding: 48px 0 28px;
     border-top: 1px solid var(--color-border);
 }
 
 .footer-content {
     display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.footer-description {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.footer-tagline {
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 12px;
+}
+
+.footer-author {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.footer-author strong {
+    color: var(--color-text);
+}
+
+.footer-link {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.footer-link a {
+    color: var(--color-primary-hover);
+    font-weight: 500;
+}
+
+.footer-bottom {
+    display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
 }
 
 .footer-left {
@@ -434,6 +498,20 @@ code {
     gap: 8px;
     font-weight: 600;
     font-size: 0.95rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.footer-logo:hover {
+    color: var(--color-text);
 }
 
 .footer-center p {
@@ -477,7 +555,7 @@ code {
         flex-direction: column;
     }
 
-    .footer-content {
+    .footer-bottom {
         flex-direction: column;
         text-align: center;
     }

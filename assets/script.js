@@ -2,6 +2,20 @@
 
 (function () {
     const VERSION_URL = '/version.txt';
+    const LOGO_IMAGES = [
+        'assets/logos/Bird-1.png',
+        'assets/logos/Bird-envelope.png',
+        'assets/logos/Bird-flag.png',
+        'assets/logos/Bird-folder.png'
+    ];
+
+    function setRandomLogo() {
+        var logoBird = document.getElementById('logo-bird');
+        if (logoBird) {
+            var randomIndex = Math.floor(Math.random() * LOGO_IMAGES.length);
+            logoBird.src = LOGO_IMAGES[randomIndex];
+        }
+    }
 
     async function loadVersion() {
         const versionDisplay = document.getElementById('version-display');
@@ -49,6 +63,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+        setRandomLogo();
         loadVersion();
         setFooterYear();
         initSmoothScroll();

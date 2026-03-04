@@ -39,6 +39,9 @@ credentials/
 *.log
 *.bak
 
+# --- Source image assets (copies exist in assets/) ---
+Images/
+
 # --- Other/experiments (keep .gitkeep but ignore contents) ---
 Other/experiments/
 Other/notes.md
