@@ -7,3 +7,4 @@ This file tracks all version rollbacks and production incidents.
 | 2026-03-04 | V2.0.0  | Replaced by V2.0.1  | Archived |
 | 2026-03-04 | V2.0.1 | Replaced by V2.0.1 | Archived |
 | 2026-03-04 | V2.0.1 | Replaced by V2.0.2 | Archived |
+| 2026-03-05 | V2.0.3 | Replaced by V2.0.1 | Archived |
