@@ -11,10 +11,11 @@
 #   1. Read the OLD version from version.txt (before this push)
 #   2. Extract the NEW version from manifest.json in the ZIP
 #   3. Validate that manifest.json and version.txt inside the ZIP match
-#   4. Archive the previous ZIP with the old version name
-#   5. Log the replacement in ROLLBACK_LOG.md (with date)
-#   6. Write the new version to version.txt (PROD + root)
-#   7. Commit and push
+#   4. Validate that changelog in index.html has been updated
+#   5. Archive the previous ZIP with the old version name
+#   6. Log the replacement in ROLLBACK_LOG.md (with date)
+#   7. Write the new version to version.txt (PROD + root)
+#   8. Commit and push
 # =============================================================
 
 name: Spark + Release Pipeline
@@ -93,6 +94,42 @@ jobs:
           fi
 
           rm -rf /tmp/sparkplus-extract
+
+      - name: Validate changelog in index.html has been updated
+        run: |
+          OLD_VERSION="${{ steps.old_version.outputs.version }}"
+
+          LAST_RELEASE_COMMIT=$(git log --oneline --all --grep="Release ${OLD_VERSION} - automated pipeline" -1 --format='%H') || true
+
+          if [ -z "$LAST_RELEASE_COMMIT" ]; then
+            echo "No previous release commit found. Skipping changelog validation."
+            exit 0
+          fi
+
+          echo "Comparing changelog against last release commit: $LAST_RELEASE_COMMIT"
+
+          CURRENT=$(sed -n '/<section id="changelog"/,/<\/section>/p' index.html \
+            | grep -oP '(?<=<li )[^>]+>[^<]+' | head -3 | md5sum | awk '{print $1}')
+
+          PREVIOUS=$(git show "${LAST_RELEASE_COMMIT}:index.html" 2>/dev/null \
+            | sed -n '/<section id="changelog"/,/<\/section>/p' \
+            | grep -oP '(?<=<li )[^>]+>[^<]+' | head -3 | md5sum | awk '{print $1}') || PREVIOUS="none"
+
+          echo "Current changelog hash:  $CURRENT"
+          echo "Previous changelog hash: $PREVIOUS"
+
+          if [ "$CURRENT" = "$PREVIOUS" ] && [ "$PREVIOUS" != "none" ]; then
+            echo ""
+            echo "========================================================"
+            echo "  VALIDATION FAILED"
+            echo "  The changelog section in index.html has NOT been"
+            echo "  updated since the last release (${OLD_VERSION})."
+            echo "  Please add the release notes for the new version"
+            echo "  to index.html before pushing PROD-READY-SETUP.zip."
+            echo "========================================================"
+            exit 1
+          fi
+          echo "Validation passed: changelog has been updated since ${OLD_VERSION}."
 
       - name: Archive previous package
         run: |
