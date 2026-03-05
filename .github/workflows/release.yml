@@ -10,10 +10,11 @@
 # Steps:
 #   1. Read the OLD version from version.txt (before this push)
 #   2. Extract the NEW version from manifest.json in the ZIP
-#   3. Archive the previous ZIP with the old version name
-#   4. Log the replacement in ROLLBACK_LOG.md (with date)
-#   5. Write the new version to version.txt (PROD + root)
-#   6. Commit and push
+#   3. Validate that manifest.json and version.txt inside the ZIP match
+#   4. Archive the previous ZIP with the old version name
+#   5. Log the replacement in ROLLBACK_LOG.md (with date)
+#   6. Write the new version to version.txt (PROD + root)
+#   7. Commit and push
 # =============================================================
 
 name: Spark + Release Pipeline
@@ -63,6 +64,33 @@ jobs:
           NEW_VERSION=$(python3 -c "import json; print(json.load(open('$MANIFEST'))['version'])")
           echo "version=V${NEW_VERSION}" >> "$GITHUB_OUTPUT"
           echo "New version from manifest: V${NEW_VERSION}"
+
+      - name: Validate version consistency inside ZIP
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+
+          ZIP_VERSION_FILE=$(find /tmp/sparkplus-extract -name "version.txt" -type f | head -1)
+          if [ -n "$ZIP_VERSION_FILE" ]; then
+            ZIP_VERSION=$(cat "$ZIP_VERSION_FILE" | tr -d '[:space:]')
+            echo "version.txt inside ZIP: $ZIP_VERSION"
+            echo "manifest.json version:  $NEW_VERSION"
+
+            if [ "$ZIP_VERSION" != "$NEW_VERSION" ]; then
+              echo ""
+              echo "========================================================"
+              echo "  VALIDATION FAILED"
+              echo "  manifest.json version ($NEW_VERSION) does not match"
+              echo "  version.txt inside ZIP ($ZIP_VERSION)."
+              echo "  Please ensure both files have the same version"
+              echo "  before pushing a new release."
+              echo "========================================================"
+              rm -rf /tmp/sparkplus-extract
+              exit 1
+            fi
+            echo "Validation passed: manifest.json and version.txt match."
+          else
+            echo "WARNING: No version.txt found inside ZIP. Skipping validation."
+          fi
 
           rm -rf /tmp/sparkplus-extract
 
