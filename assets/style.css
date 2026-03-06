@@ -401,6 +401,13 @@ a.logo:hover {
     line-height: 1.65;
 }
 
+.inline-icon {
+    height: 1.2em;
+    width: auto;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+
 /* --- Changelog --- */
 .changelog {
     padding: 100px 0;
