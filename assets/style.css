@@ -270,6 +270,11 @@ a.logo:hover {
     transform: translateY(-1px);
 }
 
+.version-badge-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .version-badge {
     display: inline-flex;
     align-items: center;
