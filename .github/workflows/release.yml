@@ -11,7 +11,7 @@
 #   1. Read the OLD version from version.txt (before this push)
 #   2. Extract the NEW version from manifest.json in the ZIP
 #   3. Validate that manifest.json and version.txt inside the ZIP match
-#   4. Validate that changelog in index.html has been updated
+#   4. Validate changelog: old version has static entry + latest text changed
 #   5. Archive the previous ZIP with the old version name
 #   6. Log the replacement in ROLLBACK_LOG.md (with date)
 #   7. Write the new version to version.txt (PROD + root)
@@ -95,41 +95,82 @@ jobs:
 
           rm -rf /tmp/sparkplus-extract
 
-      - name: Validate changelog in index.html has been updated
+      - name: Validate changelog in index.html has been updated for new release
         run: |
           OLD_VERSION="${{ steps.old_version.outputs.version }}"
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
 
-          LAST_RELEASE_COMMIT=$(git log --oneline --all --grep="Release ${OLD_VERSION} - automated pipeline" -1 --format='%H') || true
+          echo "New version: ${NEW_VERSION}"
+          echo "Previous version: ${OLD_VERSION}"
 
-          if [ -z "$LAST_RELEASE_COMMIT" ]; then
-            echo "No previous release commit found. Skipping changelog validation."
-            exit 0
+          CHANGELOG_SECTION=$(sed -n '/<section id="changelog"/,/<\/section>/p' index.html)
+
+          # The "Latest" entry has no hardcoded version -- it is populated
+          # dynamically by script.js from version.txt.  Static entries use
+          # <span class="tag">V2.0.X</span>.  When a new release is pushed
+          # the developer must:
+          #   1. Replace the text in the "Latest" entry with the NEW notes.
+          #   2. Add a NEW static entry for the OLD version with its notes.
+          #
+          # We validate BOTH conditions:
+          #   A. The old version must appear as a static changelog entry.
+          #   B. The latest entry's <li> content must differ from the
+          #      previous release commit (i.e. the text was actually changed).
+
+          # --- Check A: old version exists as a static entry ---
+          if [ "$OLD_VERSION" != "unknown" ]; then
+            if echo "$CHANGELOG_SECTION" | grep -q "class=\"tag\">${OLD_VERSION}<"; then
+              echo "Check A passed: ${OLD_VERSION} found as static changelog entry."
+            else
+              echo ""
+              echo "========================================================"
+              echo "  VALIDATION FAILED  (Check A)"
+              echo "  The previous version (${OLD_VERSION}) was not found as"
+              echo "  a static entry in the changelog section of index.html."
+              echo ""
+              echo "  Before pushing PROD-READY-SETUP.zip, you must:"
+              echo "    1. Update the Latest entry text to ${NEW_VERSION} notes."
+              echo "    2. Add a new static entry for ${OLD_VERSION} with its"
+              echo "       original release notes."
+              echo "========================================================"
+              exit 1
+            fi
           fi
 
-          echo "Comparing changelog against last release commit: $LAST_RELEASE_COMMIT"
+          # --- Check B: latest entry text differs from last release ---
+          LAST_RELEASE_COMMIT=$(git log --oneline --all \
+            --grep="Release ${OLD_VERSION} - automated pipeline" \
+            -1 --format='%H' 2>/dev/null) || true
 
-          CURRENT=$(sed -n '/<section id="changelog"/,/<\/section>/p' index.html \
-            | grep -oP '(?<=<li )[^>]+>[^<]+' | head -3 | md5sum | awk '{print $1}')
+          if [ -n "$LAST_RELEASE_COMMIT" ]; then
+            CURRENT_LATEST=$(echo "$CHANGELOG_SECTION" \
+              | sed -n '1,/class="tag">[^<]*<\/span>/p' \
+              | grep -oP '(?<=<li )[^>]+>[^<]+' | head -1 | md5sum)
 
-          PREVIOUS=$(git show "${LAST_RELEASE_COMMIT}:index.html" 2>/dev/null \
-            | sed -n '/<section id="changelog"/,/<\/section>/p' \
-            | grep -oP '(?<=<li )[^>]+>[^<]+' | head -3 | md5sum | awk '{print $1}') || PREVIOUS="none"
+            PREVIOUS_LATEST=$(git show "${LAST_RELEASE_COMMIT}:index.html" 2>/dev/null \
+              | sed -n '/<section id="changelog"/,/<\/section>/p' \
+              | sed -n '1,/class="tag">[^<]*<\/span>/p' \
+              | grep -oP '(?<=<li )[^>]+>[^<]+' | head -1 | md5sum) || PREVIOUS_LATEST="none"
 
-          echo "Current changelog hash:  $CURRENT"
-          echo "Previous changelog hash: $PREVIOUS"
-
-          if [ "$CURRENT" = "$PREVIOUS" ] && [ "$PREVIOUS" != "none" ]; then
-            echo ""
-            echo "========================================================"
-            echo "  VALIDATION FAILED"
-            echo "  The changelog section in index.html has NOT been"
-            echo "  updated since the last release (${OLD_VERSION})."
-            echo "  Please add the release notes for the new version"
-            echo "  to index.html before pushing PROD-READY-SETUP.zip."
-            echo "========================================================"
-            exit 1
+            if [ "$CURRENT_LATEST" = "$PREVIOUS_LATEST" ] && [ "$PREVIOUS_LATEST" != "none" ]; then
+              echo ""
+              echo "========================================================"
+              echo "  VALIDATION FAILED  (Check B)"
+              echo "  The Latest changelog entry text is identical to the"
+              echo "  previous release (${OLD_VERSION}). The release notes"
+              echo "  for ${NEW_VERSION} have not been written."
+              echo ""
+              echo "  Update the <li> items inside the Latest changelog"
+              echo "  entry in index.html before pushing."
+              echo "========================================================"
+              exit 1
+            fi
+            echo "Check B passed: latest entry text has changed since ${OLD_VERSION}."
+          else
+            echo "Check B skipped: no previous release commit found."
           fi
-          echo "Validation passed: changelog has been updated since ${OLD_VERSION}."
+
+          echo "Changelog validation passed."
 
       - name: Archive previous package
         run: |
