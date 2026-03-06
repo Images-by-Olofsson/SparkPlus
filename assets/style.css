@@ -402,8 +402,11 @@ a.logo:hover {
 }
 
 .inline-icon {
-    height: 1.2em;
-    width: auto;
+    display: inline-block;
+    height: 0.95em;
+    width: 0.95em;
+    max-height: 0.95em;
+    max-width: 0.95em;
     vertical-align: middle;
     margin: 0 2px;
 }
