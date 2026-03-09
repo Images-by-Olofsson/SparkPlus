@@ -416,6 +416,29 @@ a.logo:hover {
     padding: 100px 0;
 }
 
+.changelog-scroll {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.changelog-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.changelog-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.changelog-scroll::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+}
+
+.changelog-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+}
+
 .changelog-entry {
     max-width: 640px;
     margin: 0 auto;
@@ -486,6 +509,50 @@ a.logo:hover {
     left: 0;
     color: var(--color-primary);
     font-weight: 700;
+}
+
+/* --- More Tools --- */
+.more-tools {
+    padding: 100px 0;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.tool-card {
+    display: block;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    text-decoration: none;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.tool-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+}
+
+.tool-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
+.tool-card p {
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.65;
 }
 
 /* --- Footer --- */
