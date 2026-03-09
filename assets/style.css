@@ -417,7 +417,7 @@ a.logo:hover {
 }
 
 .changelog-scroll {
-    max-height: 350px;
+    max-height: 450px;
     overflow-y: auto;
     padding-right: 8px;
 }
