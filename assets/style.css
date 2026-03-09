@@ -514,7 +514,8 @@ a.logo:hover {
 /* --- Footer Tools --- */
 .footer-tools {
     text-align: center;
-    padding-bottom: 24px;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
     border-bottom: 1px solid var(--color-border);
 }
 
