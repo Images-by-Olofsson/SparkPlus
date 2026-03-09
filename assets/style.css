@@ -241,6 +241,15 @@ a.logo:hover {
     flex-wrap: wrap;
 }
 
+.hero-compat {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    max-width: 480px;
+    margin: 16px auto 0;
+    line-height: 1.5;
+    opacity: 0.75;
+}
+
 /* --- Buttons --- */
 .btn {
     display: inline-flex;

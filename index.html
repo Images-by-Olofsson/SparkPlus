@@ -46,6 +46,8 @@
                 </a>
                 <a href="#changelog" class="version-badge-link"><span class="version-badge" id="version-display">Loading...</span></a>
             </div>
+            <p class="hero-compat" data-sv="F&ouml;r stunden saknas integration mot Firefox, men till&auml;gget fungerar f&ouml;r Chrome, Brave, Edge och andra Chromium-baserade webbl&auml;sare." data-en="Firefox integration is currently not available, but the extension works with Chrome, Brave, Edge, and other Chromium-based browsers.">F&ouml;r stunden saknas integration mot Firefox, men till&auml;gget fungerar f&ouml;r Chrome, Brave, Edge och andra Chromium-baserade webbl&auml;sare.</p>
+            </div>
         </div>
     </header>
 
@@ -142,6 +144,20 @@
                 </div>
                 <div class="changelog-details">
                     <p class="changelog-date" id="changelog-date">--</p>
+                    <ul>
+                        <li data-sv="Buggfix &mdash; tom k&ouml; rensar inte listan: &Aring;tg&auml;rdade ett problem d&auml;r det sista &auml;rendet i listan kvarst&aring;r i popup-f&ouml;nstret &auml;ven efter att API:et bekr&auml;ftat noll aktiva &auml;renden. Lagringsutrymmet f&ouml;r &auml;renden rensas nu explicit n&auml;r API:et returnerar ett tomt resultat." data-en="Bugfix &mdash; Empty Queue Not Clearing List: Resolved an issue where the last ticket in the list would persist in the popup even after the API confirmed zero active tickets. The scrapedItems storage is now explicitly cleared when the API returns an empty result set.">Buggfix &mdash; tom k&ouml; rensar inte listan: &Aring;tg&auml;rdade ett problem d&auml;r det sista &auml;rendet i listan kvarst&aring;r i popup-f&ouml;nstret &auml;ven efter att API:et bekr&auml;ftat noll aktiva &auml;renden. Lagringsutrymmet f&ouml;r &auml;renden rensas nu explicit n&auml;r API:et returnerar ett tomt resultat.</li>
+                        <li data-sv="Timer &mdash; s&auml;nkt minimigr&auml;ns: Minsta till&aring;tna timerintervall har s&auml;nkts fr&aring;n 15 minuter till 5 minuter, vilket m&ouml;jligg&ouml;r kortare &aring;terkommande uppdateringsintervall." data-en="Timer Minimum Reduced: The minimum timer duration has been lowered from 15 minutes to 5 minutes, allowing shorter recurring update intervals.">Timer &mdash; s&auml;nkt minimigr&auml;ns: Minsta till&aring;tna timerintervall har s&auml;nkts fr&aring;n 15 minuter till 5 minuter, vilket m&ouml;jligg&ouml;r kortare &aring;terkommande uppdateringsintervall.</li>
+                        <li data-sv="F&ouml;rb&auml;ttrade felmeddelanden: API-fel orsakade av ogiltiga eller utg&aring;ngna tokens (inklusive JSON-tolkningsfel) visar nu ett anv&auml;ndarv&auml;nligt meddelande &mdash; &laquo;&Ouml;ppna Spark f&ouml;r att verifiera ditt token&raquo; &mdash; ist&auml;llet f&ouml;r r&aring; feltext. Notifikationen inkluderar en &laquo;&Ouml;ppna Spark&raquo;-knapp f&ouml;r snabb &aring;terautentisering." data-en="Improved Error Messages: API errors caused by invalid or expired tokens (including JSON parse failures) now display a user-friendly message instead of raw error text. The notification includes an &laquo;&Ouml;ppna Spark&raquo; button for quick re-authentication.">F&ouml;rb&auml;ttrade felmeddelanden: API-fel orsakade av ogiltiga eller utg&aring;ngna tokens (inklusive JSON-tolkningsfel) visar nu ett anv&auml;ndarv&auml;nligt meddelande &mdash; &laquo;&Ouml;ppna Spark f&ouml;r att verifiera ditt token&raquo; &mdash; ist&auml;llet f&ouml;r r&aring; feltext. Notifikationen inkluderar en &laquo;&Ouml;ppna Spark&raquo;-knapp f&ouml;r snabb &aring;terautentisering.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="changelog-entry" style="margin-top: 16px;">
+                <div class="changelog-version">
+                    <span class="tag">V2.0.5</span>
+                    <span class="changelog-ver">2026-03-07</span>
+                </div>
+                <div class="changelog-details">
+                    <p class="changelog-date">2026-03-07</p>
                     <ul>
                         <li data-sv="Timer &mdash; s&auml;nkt minimigr&auml;ns: Minsta till&aring;tna timerintervall har s&auml;nkts fr&aring;n 15 minuter till 5 minuter, vilket m&ouml;jligg&ouml;r kortare &aring;terkommande uppdateringsintervall." data-en="Timer Minimum Reduced: The minimum timer duration has been lowered from 15 minutes to 5 minutes, allowing shorter recurring update intervals.">Timer &mdash; s&auml;nkt minimigr&auml;ns: Minsta till&aring;tna timerintervall har s&auml;nkts fr&aring;n 15 minuter till 5 minuter, vilket m&ouml;jligg&ouml;r kortare &aring;terkommande uppdateringsintervall.</li>
                         <li data-sv="F&ouml;rb&auml;ttrade felmeddelanden: API-fel orsakade av ogiltiga eller utg&aring;ngna tokens (inklusive JSON-tolkningsfel) visar nu ett anv&auml;ndarv&auml;nligt meddelande &mdash; &laquo;&Ouml;ppna Spark f&ouml;r att verifiera ditt token&raquo; &mdash; ist&auml;llet f&ouml;r r&aring; feltext. Notifikationen inkluderar en &laquo;&Ouml;ppna Spark&raquo;-knapp f&ouml;r snabb &aring;terautentisering." data-en="Improved Error Messages: API errors caused by invalid or expired tokens (including JSON parse failures) now display a user-friendly message instead of raw error text. The notification includes an &laquo;&Ouml;ppna Spark&raquo; button for quick re-authentication.">F&ouml;rb&auml;ttrade felmeddelanden: API-fel orsakade av ogiltiga eller utg&aring;ngna tokens (inklusive JSON-tolkningsfel) visar nu ett anv&auml;ndarv&auml;nligt meddelande &mdash; &laquo;&Ouml;ppna Spark f&ouml;r att verifiera ditt token&raquo; &mdash; ist&auml;llet f&ouml;r r&aring; feltext. Notifikationen inkluderar en &laquo;&Ouml;ppna Spark&raquo;-knapp f&ouml;r snabb &aring;terautentisering.</li>
