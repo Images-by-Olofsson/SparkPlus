@@ -14,3 +14,4 @@ This file tracks all version rollbacks and production incidents.
 | 2026-03-09 | V2.0.5 | Replaced by V2.0.6 | Archived |
 | 2026-03-10 | V2.0.6 | Replaced by V2.0.7 | Archived |
 | 2026-03-16 | V2.0.7 | Replaced by V2.0.8 | Archived |
+| 2026-03-18 | V2.0.8 | Replaced by V2.0.9 | Archived |
