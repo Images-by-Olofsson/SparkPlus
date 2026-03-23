@@ -1,0 +1,1 @@
+Timer — sänkt minimigräns: Minsta tillåtna timerduration har sänkts från 5 minuter till 30 sekunder. Ett nytt «Sekunder»-inmatningsfält har lagts till i timerinställningarna, vilket möjliggör precisa intervall under en minut.
